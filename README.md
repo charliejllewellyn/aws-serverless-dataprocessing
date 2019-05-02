@@ -3,6 +3,8 @@ This lab demonstrates how to build a serverless data processing pipeline to enri
 
 The lab also introduces AWS Codepipeline enabling blue/green deployments of the serverless application.
 
+# Prerequisites
+
 # Implementation
 The follow steps lead you through the process of deploying and testing the application.
 ## Creating a pipeline to automatically deploy our application
@@ -14,7 +16,7 @@ To do this click on the following link which will open the AWS CloudFormation co
 
 | AWS Region | Short name | |
 | -- | -- | -- |
-| EU West (London) | eu-west-2 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=fakedb&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/codepipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
+| EU West (London) | eu-west-2 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/codepipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
 
 pip install nose2 boto3 && nose2 -v
 ## Create a step function to perform data processing
