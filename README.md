@@ -176,6 +176,7 @@ Now we have a schema over the enriched data we can start to visualise the output
 1. In the top right click **Manage data**
 1. Click **New dataset**
 1. Select **Athena** and enter the *serverlessDataprocessingOutput* for the **Data source name**
+1. Click Validate to ensure a successful connection
 1. Click **Create datasource**
 1. Select **serverlessdataprocessing** for the **Database**
 1. Click **Use custom SQL** and enter
