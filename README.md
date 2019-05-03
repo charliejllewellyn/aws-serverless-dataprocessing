@@ -198,11 +198,11 @@ Now we have a schema over the enriched data we can start to visualise the output
     </p>
 1. On the left select **Filter**
 1. Click the **+** symbol next to **Applied Filters** and select **Confidence**
-1. Click on the filter **confidence** and change **Equals** to **greater than or equal to** and enter **90** into the entery box. This will now only display information for images where the catagorisation was above 90%. 
+1. Click on the filter **confidence** and change **Equals** to **greater than or equal to** and enter **90** into the entry box. This will now only display information for images where the catagorisation was above 90%. 
 
 ## Use Athena to query data
 Whilst visualisation is useful it is also helpful to query the data directly with SQL, to do this we'll use Amazon Athena.
-1. In the top left of the AWS console select **services**
+1. Visit https://console.aws.amazon.com to return to the AWS Console
 1. In the search box enter *Athena* and select the service
 1. In the left hand dropdown select **ServerlessDataProcessing** for the **Database**
 1. 
