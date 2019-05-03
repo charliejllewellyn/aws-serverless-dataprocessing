@@ -39,11 +39,39 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 
 1. In the top left of the AWS console select **services**
 1. In the search box enter *CodePipeline* and select the service
-<p align="left">
-  <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/svc_codepipline.png">
-</p>
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/svc_codepipline.png">
+    </p>
+1. Click into the pipeline you have created e.g. *serverlessdataprocessing-Codepipeline-Demo*
+    **Note:** It will show failed because it doesn't yet have any code to deploy
+1. In the top left click edit
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codepipeline_edit.png">
+    </p>
+1. Underneath the first phase *Source* click **Add Stage**.
+1. Enter *Testing* for the **Stage Name** and click **Add Stage**
+1. In the new stage click **Add action group**
+1. Enter *unitests* for the **Action name**
+1. Select **AWS CodeBuild** under the **Test** section for the **Action provider**
+1. Leave the **Region** as **EU (Ireland)**
+1. Select **MyApp** for the **Input artifacts**
+1. Select **Create Project** for the **Project Name**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codebuild_stage.png">
+    </p>
+1. In page that opens enter *unitests* as the **Project Name**
+1. Unless specified below leave all other fields as their default
+1. In the **Environment** section select **Ubuntu** as the **Operating system**
+1. Select **Python** for the **Runtime(s)**
+1. Select **aws/codebuild/python:3.7.1** for the **Image version**
+1. Under the **Buildspec** section check **Insert build commands**
+1. In the **Build commands** box enter the following
+    ```pip install nose2 boto3 && nose2 -v```
+1. Click **Continue to CodePipeline**
+1. Once you are returned to the previous window click **Save**
+1. On the next page click **Save**
+1. Finally click **Save** on the popup
 
-pip install nose2 boto3 && nose2 -v
 ## Create a step function to perform data processing
 Start generating traffic with lambda function
 ## Create a glue catalog
