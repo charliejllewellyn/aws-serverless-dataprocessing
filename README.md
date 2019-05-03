@@ -181,7 +181,7 @@ Now we have a schema over the enriched data we can start to visualise the output
 1. Select **serverlessdataprocessing** for the **Database**
 1. Click **Use custom SQL** and enter
     ```SELECT 
-    labels2.name, labels2.confidence
+    labels2.name, labels2.confidence, objectId
     FROM 
     ServerlessDataProcessing.rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
     ```
@@ -240,3 +240,6 @@ git add dataType/dataType.py && git commit -m 'Force breaking change' ;  git pus
       <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codedeploy_success.png">
     </p>
 1. Eventually you will see the process fail and the traffic will revert 100% to the original code whilst codepipeline marks the deployment as failed
+    <p align="left">
+      <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codedeploy_rollback.png">
+    </p>
