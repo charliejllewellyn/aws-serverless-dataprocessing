@@ -1,5 +1,5 @@
 # Overview
-This lab demonstrates how to build a serverless data processing pipeline to enrich data, catalog it and run add hock queries and reporting.
+This lab demonstrates how to build a serverless data processing pipeline to enrich data, catalog it and run ad-hoc queries and reporting.
 
 The lab also introduces AWS Codepipeline enabling blue/green deployments of the serverless application.
 
