@@ -5,6 +5,12 @@ The lab also introduces AWS Codepipeline enabling blue/green deployments of the 
 
 # Prerequisites
 
+Install Git, generate a keypair and add add the public key to your security credentials in AWS. The can be done by following the guide here:
+
+https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-unixes.html
+
+**Note:** You can skip **Step 4**
+
 # Implementation
 The follow steps lead you through the process of deploying and testing the application.
 ## Creating a pipeline to automatically deploy our application
@@ -71,6 +77,19 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 1. Once you are returned to the previous window click **Save**
 1. On the next page click **Save**
 1. Finally click **Save** on the popup
+
+### Deploy the application
+
+1. Within the CodePipeline console expand **source** in the left maneu and select **repositories**
+1. Select **SSH** on the right hand side next to the **serverelessdataprocessing** repository
+1. On your local computer checkout the code from the repository address you just copied e.g.
+    ```git clone ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/serverlessdataprocessing```
+1. On your local computer clone the example application from https://github.com/charliejllewellyn/aws-service-demos, e.g.
+   ```git clone https://github.com/charliejllewellyn/aws-service-demos```
+1. On your local computer copy the code from aws-service-demos/codepipeline/exampleDeployment/* into the CodeCommit repostory you checked out in step 3, e.g.
+    ```cp -R aws-service-demos/codepipeline/exampleDeployment/* serverlessdataprocessin/```
+1. On your local computer checkin the changes and push the application e.g.
+    ```cd serverlessdataprocessin/ && git add * && git commit -m 'inital code deployment && git push**```
 
 ## Create a step function to perform data processing
 Start generating traffic with lambda function
