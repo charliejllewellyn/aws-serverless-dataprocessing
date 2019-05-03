@@ -165,7 +165,7 @@ Now we have a schema over the enriched data we can start to visualise the output
 1. Close the pop-up box that appears
 1. Now click your username to the right and choose **Manage Quicksight**
 1. In the left hand menu click **Account Settings**
-1. Click **Add or remove**
+1. Click **Add or remove** under the 'Connected Products and Services' header
 1. Check **Amazon S3**, select the *Output* bucket and click **Select Buckets**
     <p align="left">
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_buckets.png">
