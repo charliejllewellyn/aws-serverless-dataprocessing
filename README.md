@@ -200,9 +200,38 @@ Whilst visualisation is useful it is also helpful to query the data directly wit
 1. In the top left of the AWS console select **services**
 1. In the search box enter *Athena* and select the service
 1. In the left hand dropdown select **ServerlessDataProcessing** for the **Database**
-1. 
-SELECT 
-labels2.name, labels2.confidence
-FROM 
-cheltworkshop.rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
+1. IN the query section center the following code
+```SELECT
+rekognitionimagedetectlabels.objectid, labels2.name, labels2.confidence, rekognitionimagefacedetection.facedetails, rekognitionimagedetecttext.textdetections
+FROM
+rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
+INNER JOIN serverlessdataprocessing.rekognitionimagefacedetection ON rekognitionimagedetectlabels.objectid=rekognitionimagefacedetection.objectid
+INNER JOIN serverlessdataprocessing.rekognitionimagedetecttext  ON rekognitionimagedetectlabels.objectid=rekognitionimagedetecttext.objectid
+where labels2.confidence > 98 and labels2.name like '%Human%' order by labels2.confidence desc
+```
+1. If you are interested you can take the objectid and open the S3 input bucket and download the image to see the image that was analysed
+
 ## Demonstrate blue/green
+The last stage of the CI/CD process is to demonstrate how we can protect our deployments with automated checks that will use the monitoring we have in place for our application to spot errors that are introduced when we push code and automatically role back. This is often the case where there are conditions that only become apart in production and are too difficult or costly to reproduce in pre-production.
+
+To demonstate this we are going to introduce a breaking change to our application. Code deploy will release the code and then start shifting a percentage of traffic through the new application code. When the new code starts to error CloudWatch will pick up and notify our pipeline that an error has been caused causing our pipeline to fail all traffic back to the old code and mark the deployment as failed.
+
+1. On your local computer open the file **serverlessdataprocessing** repository called **dataType/dataType.py** in an editor
+1. Comment in the following lines
+```
+    if readHead(event) == 'image/jpeg':
+        event['Records'][0]['s3']['object']['key'] = 'non-existent-key'
+```
+1. Add, commit and push the changes to code commit e.g.
+```
+git add dataType/dataType.py && git commit -m 'Force breaking change' ;  git push
+```
+1. In the top left of the AWS console select **services**
+1. In the search box enter *CodePipeline* and select the service
+1. When the change reaches the last stage expand **Deploy** in the left hand menu and click **Deployments**
+1. Eventually you will see the deployment start and click the **Deployment ID**
+1. You will now see the traffic starting to push a percentage of users onto the the code
+    <p align="left">
+      <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codedeploy_success.png">
+    </p>
+1. Eventually you will see the process fail and the traffic will revert 100% to the original code whilst codepipeline marks the deployment as failed
