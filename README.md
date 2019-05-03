@@ -155,11 +155,52 @@ Now our serverless application is processing data we will use glue to create a s
     </p>
 
 ## Query QuickSight
-SELECT 
-labels2.name, labels2.confidence
-FROM 
-cheltworkshop.rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
+Now we have a schema over the enriched data we can start to visualise the output.
+1. In the top left of the AWS console select **services**
+1. In the search box enter *QuickSight* and select the service
+    **Note:** You may need to enter an email address here, you can enter a fake one
+1. In the top right hand corner select **Ireland** and change the region to **US East (N. Virginia)**
+1. Now click your username to the right and choose **Manage Quicksight**
+1. In the left hand menu click **Account Settings**
+1. Click **Add or remove**
+1. Check **Amazon S3**, select the *Output* bucket and click **Select Buckets**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_buckets.png">
+    </p>
+1. Click **Update**
+1. In the top right hand corner select **N. Virginia** and change the region to **EU (Ireland)**
+1. In the top right click **Manage data**
+1. Click **New dataset**
+1. Select **Athena** and enter the *serverlessDataprocessingOutput* for the **Data source name**
+1. Click **Create datasource**
+1. Select **serverlessdataprocessing** for the **Database**
+1. Click **Use custom SQL** and enter
+    ```SELECT 
+    labels2.name, labels2.confidence
+    FROM 
+    ServerlessDataProcessing.rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
+    ```
+1. Click **Confirm Query**
+1. Click **Visualize**
+1. When presented with the visualisation drag **Name** from the left into the box named **AutoGraph**
+1. At the bottom of the page click **Pie Chart**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_pie.png">
+    </p>
+1. Finally click the **other** section of the graph and click **Hide**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_hide.png">
+    </p>
+1. On the left select **Filter**
+1. Click the **+** symbol next to **Applied Filters** and select **Confidence**
+1. Click on the filter **confidence** and change **Equals** to **greater than or equal to** and enter **90** into the entery box. This will now only display information for images where the catagorisation was above 90%. 
+
 ## Use Athena to query data
+Whilst visualisation is useful it is also helpful to query the data directly with SQL, to do this we'll use Amazon Athena.
+1. In the top left of the AWS console select **services**
+1. In the search box enter *Athena* and select the service
+1. In the left hand dropdown select **ServerlessDataProcessing** for the **Database**
+1. 
 SELECT 
 labels2.name, labels2.confidence
 FROM 
