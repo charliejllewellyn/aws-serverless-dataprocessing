@@ -170,6 +170,7 @@ Now we have a schema over the enriched data we can start to visualise the output
     <p align="left">
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_buckets.png">
     </p>
+1. Check **Athena**
 1. Click **Update**
 1. In the top right hand corner select **N. Virginia** and change the region to **EU (Ireland)**
 1. In the top right click **Manage data**
