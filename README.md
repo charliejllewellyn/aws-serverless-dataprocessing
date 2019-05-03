@@ -114,8 +114,25 @@ To simulate a real world application we'll start generating some real data to pr
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/lambda_success.png">
     </p>
 
-Start generating traffic with lambda function
+### Review the application serverless processing
+1. In the top left of the AWS console select **services**
+1. In the search box enter *Step* and select the service
+1. Click into your step function e.g. *Demo-state-machine*
+1. Under the executions section you should see a number of successful executions, click into one
+1. You can now see the details of the processing that has been performed
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/step_success.png">
+    </p>
+
+TODO: EDIT STEP FUNCTION
+
 ## Create a glue catalog
+Now our serverless application is processing data we will use glue to create a schema over the output so we can start to interogate the enrichment of the data being passed into the application.
+
+1. In the top left of the AWS console select **services**
+1. In the search box enter *Glue* and select the service
+
+
 ## Query QuickSight
 SELECT 
 labels2.name, labels2.confidence
