@@ -1,15 +1,13 @@
 # Overview
-This lab demonstrates how to build a serverless data processing pipeline to enrich data, catalog it and run add hock queries and reporting.
+This lab demonstrates how to build a serverless data processing pipeline to enrich data, catalog it and run ad-hoc queries and reporting.
 
-The lab also introduces AWS Codepipeline enabling blue/green deployments of the serverless application.
+The lab also introduces AWS CodePipeline enabling blue/green deployments of the serverless application.
 
 # Prerequisites
 
 Install Git, generate a keypair and add add the public key to your security credentials in AWS. The can be done by following the guide here:
 
 https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-unixes.html
-
-**Note:** You can skip **Step 4**
 
 # Implementation
 The follow steps lead you through the process of deploying and testing the application.
@@ -22,15 +20,17 @@ To do this click on the following link which will open the AWS CloudFormation co
 
 | AWS Region | Short name | |
 | -- | -- | -- |
-| EU West (London) | eu-west-2 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/code-pipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
+| EU West (Ireland) | eu-west-1 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/code-pipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
 
 1. On the page that opens click **next**
 1. Enter a project name e.g. *serverlessdataprocessing* and click **next**
 1. Click **next**
-1. Place a check in **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
+1. You may be asked to acknowledge that AWS CloudFormation might create IAM resources with custom names.
     <p align="left">
       <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/cf_iam_perms.png">
     </p>
+
+   If so, check the box.
 1. Click **Create Stack**
 
 This will take approximatly 5 minutes to deploy the stack and should result in CREATE_COMPLETE.
@@ -82,7 +82,7 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 
 ### Deploy the application
 
-1. Within the CodePipeline console expand **source** in the left maneu and select **repositories**
+1. Within the CodePipeline console expand **source** in the left menu and select **repositories**
 1. Select **SSH** on the right hand side next to the **serverelessdataprocessing** repository
 1. On your local computer checkout the code from the repository address you just copied e.g.
     ```git clone ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/serverlessdataprocessing```
