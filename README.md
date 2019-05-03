@@ -140,8 +140,10 @@ Now our serverless application is processing data we will use glue to create a s
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_bucket.png">
     </p>
 1. Click **Next**
+1. When asked if you wish to add more data stores, choose No, and click **Next**
 1. Enter *serverlessDataProcessing* for **AWSGlueServiceRole-** and click **Next**
 1. Click **Next**
+1. Choose to run the crawler on-demand. Click **Next**
 1. Click **Add Database** and enter *ServerlessDataProcessing* for the **Database name**
 1. Click **Next** and **Finish**
 1. Finally click **Run it now?**
@@ -160,18 +162,21 @@ Now we have a schema over the enriched data we can start to visualise the output
 1. In the search box enter *QuickSight* and select the service
     **Note:** You may need to enter an email address here, you can enter a fake one
 1. In the top right hand corner select **Ireland** and change the region to **US East (N. Virginia)**
+1. Close the pop-up box that appears
 1. Now click your username to the right and choose **Manage Quicksight**
 1. In the left hand menu click **Account Settings**
-1. Click **Add or remove**
+1. Click **Add or remove** under the 'Connected Products and Services' header
 1. Check **Amazon S3**, select the *Output* bucket and click **Select Buckets**
     <p align="left">
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_buckets.png">
     </p>
+1. Check **Athena**
 1. Click **Update**
 1. In the top right hand corner select **N. Virginia** and change the region to **EU (Ireland)**
 1. In the top right click **Manage data**
 1. Click **New dataset**
 1. Select **Athena** and enter the *serverlessDataprocessingOutput* for the **Data source name**
+1. Click Validate to ensure a successful connection
 1. Click **Create datasource**
 1. Select **serverlessdataprocessing** for the **Database**
 1. Click **Use custom SQL** and enter
@@ -193,11 +198,11 @@ Now we have a schema over the enriched data we can start to visualise the output
     </p>
 1. On the left select **Filter**
 1. Click the **+** symbol next to **Applied Filters** and select **Confidence**
-1. Click on the filter **confidence** and change **Equals** to **greater than or equal to** and enter **90** into the entery box. This will now only display information for images where the catagorisation was above 90%. 
+1. Click on the filter **confidence** and change **Equals** to **greater than or equal to** and enter **90** into the entry box. This will now only display information for images where the catagorisation was above 90%. 
 
 ## Use Athena to query data
 Whilst visualisation is useful it is also helpful to query the data directly with SQL, to do this we'll use Amazon Athena.
-1. In the top left of the AWS console select **services**
+1. Visit https://console.aws.amazon.com to return to the AWS Console
 1. In the search box enter *Athena* and select the service
 1. In the left hand dropdown select **ServerlessDataProcessing** for the **Database**
 1. 
