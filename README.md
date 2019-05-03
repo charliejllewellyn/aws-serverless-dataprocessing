@@ -9,8 +9,6 @@ Install Git, generate a keypair and add add the public key to your security cred
 
 https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-unixes.html
 
-**Note:** You can skip **Step 4**
-
 # Implementation
 The follow steps lead you through the process of deploying and testing the application.
 ## Creating a pipeline to automatically deploy our application
@@ -27,10 +25,12 @@ To do this click on the following link which will open the AWS CloudFormation co
 1. On the page that opens click **next**
 1. Enter a project name e.g. *serverlessdataprocessing* and click **next**
 1. Click **next**
-1. Place a check in **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
+1. You may be asked to acknowledge that AWS CloudFormation might create IAM resources with custom names.
     <p align="left">
       <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/cf_iam_perms.png">
     </p>
+
+   If so, check the box.
 1. Click **Create Stack**
 
 This will take approximatly 5 minutes to deploy the stack and should result in CREATE_COMPLETE.
