@@ -82,7 +82,7 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 
 ### Deploy the application
 
-1. Within the CodePipeline console expand **source** in the left maneu and select **repositories**
+1. Within the CodePipeline console expand **source** in the left menu and select **repositories**
 1. Select **SSH** on the right hand side next to the **serverelessdataprocessing** repository
 1. On your local computer checkout the code from the repository address you just copied e.g.
     ```git clone ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/serverlessdataprocessing```
