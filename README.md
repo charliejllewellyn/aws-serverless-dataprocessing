@@ -76,7 +76,9 @@ Usually this would be deinfed as part of the code that builds the pipeline but w
 1. Select the role **serverlessdataprocessing-Codepipeline-Codebuild-Role**
 1. Under the **Buildspec** section check **Insert build commands**
 1. In the **Build commands** box enter the following
-    ```pip install nose2 boto3 && nose2 -v```
+    ```
+    pip install nose2 boto3 && nose2 -v
+    ```
 1. Click **Continue to CodePipeline**
 1. Once you are returned to the previous window click **Save**
 1. On the next page click **Save**
