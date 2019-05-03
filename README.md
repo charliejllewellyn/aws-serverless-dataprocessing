@@ -22,7 +22,7 @@ To do this click on the following link which will open the AWS CloudFormation co
 
 | AWS Region | Short name | |
 | -- | -- | -- |
-| EU West (London) | eu-west-2 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/codepipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
+| EU West (London) | eu-west-2 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/code-pipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
 
 1. On the page that opens click **next**
 1. Enter a project name e.g. *serverlessdataprocessing* and click **next**
@@ -70,6 +70,8 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 1. In the **Environment** section select **Ubuntu** as the **Operating system**
 1. Select **Python** for the **Runtime(s)**
 1. Select **aws/codebuild/python:3.7.1** for the **Image version**
+1. Place a check in **Existing Service Role**
+1. Select the role **serverlessdataprocessing-Codepipeline-Codebuild-Role**
 1. Under the **Buildspec** section check **Insert build commands**
 1. In the **Build commands** box enter the following
     ```pip install nose2 boto3 && nose2 -v```
@@ -87,11 +89,31 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 1. On your local computer clone the example application from https://github.com/charliejllewellyn/aws-service-demos, e.g.
    ```git clone https://github.com/charliejllewellyn/aws-service-demos```
 1. On your local computer copy the code from aws-service-demos/codepipeline/exampleDeployment/* into the CodeCommit repostory you checked out in step 3, e.g.
-    ```cp -R aws-service-demos/codepipeline/exampleDeployment/* serverlessdataprocessin/```
+    ```cp -R aws-service-demos/codepipeline/exampleDeployment/* serverlessdataprocessing/```
 1. On your local computer checkin the changes and push the application e.g.
-    ```cd serverlessdataprocessin/ && git add * && git commit -m 'inital code deployment && git push**```
+    ```cd serverlessdataprocessing/ && git add * && git commit -m 'inital code deployment' && git push```
+1. Head back to the CodePipeline console and expand **Pipeline** on the left and select **Pipelines**
+1. Click into your pipeline e.g. *serverlessdataprocessing-Codepipeline-Demo* and you can follow the progress
 
 ## Create a step function to perform data processing
+
+### Generate application traffic
+To simulate a real world application we'll start generating some real data to process. To help with this we've written a Lambda function that uses an open images dataset. The Lambda function pulls randomly images form this data set and uploads to the application for processing.
+1. In the top left of the AWS console select **services**
+1. In the search box enter *Lambda* and select the service
+1. In the Lambda search box eneter *traffic* and hit enter
+1. Click into the Lambda function
+1. In the top left click **Select a test event** and **Configure test events**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/lambda_test.png">
+    </p>
+1. For the **Event name** enter test and click create **Create**
+1. Now click **test**
+1. This should now start prcoessing data and return an *Execution: success* message
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/lambda_success.png">
+    </p>
+
 Start generating traffic with lambda function
 ## Create a glue catalog
 ## Query QuickSight
