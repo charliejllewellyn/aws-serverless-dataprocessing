@@ -1,15 +1,13 @@
 # Overview
 This lab demonstrates how to build a serverless data processing pipeline to enrich data, catalog it and run ad-hoc queries and reporting.
 
-The lab also introduces AWS Codepipeline enabling blue/green deployments of the serverless application.
+The lab also introduces AWS CodePipeline enabling blue/green deployments of the serverless application.
 
 # Prerequisites
 
 Install Git, generate a keypair and add add the public key to your security credentials in AWS. The can be done by following the guide here:
 
 https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-unixes.html
-
-**Note:** You can skip **Step 4**
 
 # Implementation
 The follow steps lead you through the process of deploying and testing the application.
@@ -22,15 +20,17 @@ To do this click on the following link which will open the AWS CloudFormation co
 
 | AWS Region | Short name | |
 | -- | -- | -- |
-| EU West (London) | eu-west-2 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/code-pipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
+| EU West (Ireland) | eu-west-1 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/code-pipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
 
 1. On the page that opens click **next**
 1. Enter a project name e.g. *serverlessdataprocessing* and click **next**
 1. Click **next**
-1. Place a check in **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
+1. You may be asked to acknowledge that AWS CloudFormation might create IAM resources with custom names.
     <p align="left">
       <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/cf_iam_perms.png">
     </p>
+
+   If so, check the box.
 1. Click **Create Stack**
 
 This will take approximatly 5 minutes to deploy the stack and should result in CREATE_COMPLETE.
@@ -82,7 +82,7 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 
 ### Deploy the application
 
-1. Within the CodePipeline console expand **source** in the left maneu and select **repositories**
+1. Within the CodePipeline console expand **source** in the left menu and select **repositories**
 1. Select **SSH** on the right hand side next to the **serverelessdataprocessing** repository
 1. On your local computer checkout the code from the repository address you just copied e.g.
     ```git clone ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/serverlessdataprocessing```
@@ -127,18 +127,80 @@ To simulate a real world application we'll start generating some real data to pr
 TODO: EDIT STEP FUNCTION
 
 ## Create a glue catalog
-Now our serverless application is processing data we will use glue to create a schema over the output so we can start to interogate the enrichment of the data being passed into the application.
+Now our serverless application is processing data we will use glue to create a schema over the output so we can start to interogate the output of the enrichment performed by the application.
 
 1. In the top left of the AWS console select **services**
 1. In the search box enter *Glue* and select the service
-
+1. Click **Get Started**
+1. In the left hand menu select **Crawlers**
+1. Click **Add crawler**
+1. Enter *ServerlessDataProcessingOutput* for the **Name** and click **Next**
+1. For the **Include path** choose the folder icon to the right and select the Output bucket, e.g. *serverlessdataprocessing-application-outputbucket-10zagh3xz94ss*, click **Next**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_bucket.png">
+    </p>
+1. Click **Next**
+1. Enter *serverlessDataProcessing* for **AWSGlueServiceRole-** and click **Next**
+1. Click **Next**
+1. Click **Add Database** and enter *ServerlessDataProcessing* for the **Database name**
+1. Click **Next** and **Finish**
+1. Finally click **Run it now?**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_crawler_run.png">
+    </p>
+1. Wait for the crawler to complete, it usually takes about 2 minutes.
+1. Once complete, click **Tables** in the left hand menu to see details about the schema on read created by Glue.
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_tables.png">
+    </p>
 
 ## Query QuickSight
-SELECT 
-labels2.name, labels2.confidence
-FROM 
-cheltworkshop.rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
+Now we have a schema over the enriched data we can start to visualise the output.
+1. In the top left of the AWS console select **services**
+1. In the search box enter *QuickSight* and select the service
+    **Note:** You may need to enter an email address here, you can enter a fake one
+1. In the top right hand corner select **Ireland** and change the region to **US East (N. Virginia)**
+1. Now click your username to the right and choose **Manage Quicksight**
+1. In the left hand menu click **Account Settings**
+1. Click **Add or remove**
+1. Check **Amazon S3**, select the *Output* bucket and click **Select Buckets**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_buckets.png">
+    </p>
+1. Click **Update**
+1. In the top right hand corner select **N. Virginia** and change the region to **EU (Ireland)**
+1. In the top right click **Manage data**
+1. Click **New dataset**
+1. Select **Athena** and enter the *serverlessDataprocessingOutput* for the **Data source name**
+1. Click **Create datasource**
+1. Select **serverlessdataprocessing** for the **Database**
+1. Click **Use custom SQL** and enter
+    ```SELECT 
+    labels2.name, labels2.confidence
+    FROM 
+    ServerlessDataProcessing.rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
+    ```
+1. Click **Confirm Query**
+1. Click **Visualize**
+1. When presented with the visualisation drag **Name** from the left into the box named **AutoGraph**
+1. At the bottom of the page click **Pie Chart**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_pie.png">
+    </p>
+1. Finally click the **other** section of the graph and click **Hide**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/qs_hide.png">
+    </p>
+1. On the left select **Filter**
+1. Click the **+** symbol next to **Applied Filters** and select **Confidence**
+1. Click on the filter **confidence** and change **Equals** to **greater than or equal to** and enter **90** into the entery box. This will now only display information for images where the catagorisation was above 90%. 
+
 ## Use Athena to query data
+Whilst visualisation is useful it is also helpful to query the data directly with SQL, to do this we'll use Amazon Athena.
+1. In the top left of the AWS console select **services**
+1. In the search box enter *Athena* and select the service
+1. In the left hand dropdown select **ServerlessDataProcessing** for the **Database**
+1. 
 SELECT 
 labels2.name, labels2.confidence
 FROM 
