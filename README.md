@@ -140,6 +140,7 @@ Now our serverless application is processing data we will use glue to create a s
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_bucket.png">
     </p>
 1. Click **Next**
+1. When asked if you wish to add more data stores, choose No, and click **Next**
 1. Enter *serverlessDataProcessing* for **AWSGlueServiceRole-** and click **Next**
 1. Click **Next**
 1. Click **Add Database** and enter *ServerlessDataProcessing* for the **Database name**
