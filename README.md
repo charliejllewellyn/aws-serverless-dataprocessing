@@ -43,6 +43,8 @@ Once our pipeline is deployed we're going to add an additional stage. This stage
 
 ### Add a CodePiple stage for unitesting
 
+Usually this would be deinfed as part of the code that builds the pipeline but we are adding it manually as an oppurtunity to explore CodePipeline and CodeBuild.
+
 1. In the top left of the AWS console select **services**
 1. In the search box enter *CodePipeline* and select the service
     <p align="left">
