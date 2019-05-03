@@ -127,11 +127,32 @@ To simulate a real world application we'll start generating some real data to pr
 TODO: EDIT STEP FUNCTION
 
 ## Create a glue catalog
-Now our serverless application is processing data we will use glue to create a schema over the output so we can start to interogate the enrichment of the data being passed into the application.
+Now our serverless application is processing data we will use glue to create a schema over the output so we can start to interogate the output of the enrichment performed by the application.
 
 1. In the top left of the AWS console select **services**
 1. In the search box enter *Glue* and select the service
-
+1. Click **Get Started**
+1. In the left hand menu select **Crawlers**
+1. Click **Add crawler**
+1. Enter *ServerlessDataProcessingOutput* for the **Name** and click **Next**
+1. For the **Include path** choose the folder icon to the right and select the Output bucket, e.g. *serverlessdataprocessing-application-outputbucket-10zagh3xz94ss*, click **Next**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_bucket.png">
+    </p>
+1. Click **Next**
+1. Enter *serverlessDataProcessing* for **AWSGlueServiceRole-** and click **Next**
+1. Click **Next**
+1. Click **Add Database** and enter *ServerlessDataProcessing* for the **Database name**
+1. Click **Next** and **Finish**
+1. Finally click **Run it now?**
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_crawler_run.png">
+    </p>
+1. Wait for the crawler to complete, it usually takes about 2 minutes.
+1. Once complete, click **Tables** in the left hand menu to see details about the schema on read created by Glue.
+    <p align="left">
+      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/glue_tables.png">
+    </p>
 
 ## Query QuickSight
 SELECT 
