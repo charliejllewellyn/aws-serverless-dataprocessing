@@ -89,13 +89,21 @@ Usually this would be deinfed as part of the code that builds the pipeline but w
 1. Within the CodePipeline console expand **source** in the left menu and select **repositories**
 1. Select **SSH** on the right hand side next to the **serverelessdataprocessing** repository
 1. On your local computer checkout the code from the repository address you just copied e.g.
-    ```git clone ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/serverlessdataprocessing```
+     ```
+     git clone ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/serverlessdataprocessing
+     ```
 1. On your local computer clone the example application from https://github.com/charliejllewellyn/aws-service-demos, e.g.
-   ```git clone https://github.com/charliejllewellyn/aws-service-demos```
+    ```
+    git clone https://github.com/charliejllewellyn/aws-service-demos
+    ```
 1. On your local computer copy the code from aws-service-demos/codepipeline/exampleDeployment/* into the CodeCommit repostory you checked out in step 3, e.g.
-    ```cp -R aws-service-demos/codepipeline/exampleDeployment/* serverlessdataprocessing/```
+    ```
+     cp -R aws-service-demos/codepipeline/exampleDeployment/* serverlessdataprocessing/
+    ```
 1. On your local computer checkin the changes and push the application e.g.
-    ```cd serverlessdataprocessing/ && git add * && git commit -m 'inital code deployment' && git push```
+    ```
+    cd serverlessdataprocessing/ && git add * && git commit -m 'inital code deployment' && git push
+    ```
 1. Head back to the CodePipeline console and expand **Pipeline** on the left and select **Pipelines**
 1. Click into your pipeline e.g. *serverlessdataprocessing-Codepipeline-Demo* and you can follow the progress
 
@@ -184,7 +192,8 @@ Now we have a schema over the enriched data we can start to visualise the output
 1. Click **Create datasource**
 1. Select **serverlessdataprocessing** for the **Database**
 1. Click **Use custom SQL** and enter
-    ```SELECT 
+    ```
+    SELECT 
     labels2.name, labels2.confidence, objectId
     FROM 
     ServerlessDataProcessing.rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
@@ -210,14 +219,15 @@ Whilst visualisation is useful it is also helpful to query the data directly wit
 1. In the search box enter *Athena* and select the service
 1. In the left hand dropdown select **ServerlessDataProcessing** for the **Database**
 1. IN the query section center the following code
-```SELECT
-rekognitionimagedetectlabels.objectid, labels2.name, labels2.confidence, rekognitionimagefacedetection.facedetails, rekognitionimagedetecttext.textdetections
-FROM
-rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
-INNER JOIN serverlessdataprocessing.rekognitionimagefacedetection ON rekognitionimagedetectlabels.objectid=rekognitionimagefacedetection.objectid
-INNER JOIN serverlessdataprocessing.rekognitionimagedetecttext  ON rekognitionimagedetectlabels.objectid=rekognitionimagedetecttext.objectid
-where labels2.confidence > 98 and labels2.name like '%Human%' order by labels2.confidence desc
-```
+    ```
+    SELECT
+    rekognitionimagedetectlabels.objectid, labels2.name, labels2.confidence, rekognitionimagefacedetection.facedetails, rekognitionimagedetecttext.textdetections
+    FROM
+    rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2)
+    INNER JOIN serverlessdataprocessing.rekognitionimagefacedetection ON rekognitionimagedetectlabels.objectid=rekognitionimagefacedetection.objectid
+    INNER JOIN serverlessdataprocessing.rekognitionimagedetecttext  ON rekognitionimagedetectlabels.objectid=rekognitionimagedetecttext.objectid
+    where labels2.confidence > 98 and labels2.name like '%Human%' order by labels2.confidence desc
+    ```
 1. If you are interested you can take the objectid and open the S3 input bucket and download the image to see the image that was analysed
 
 ## Demonstrate blue/green
@@ -227,14 +237,14 @@ To demonstate this we are going to introduce a breaking change to our applicatio
 
 1. On your local computer open the file **serverlessdataprocessing** repository called **dataType/dataType.py** in an editor
 1. Comment in the following lines
-```
+    ```
     if readHead(event) == 'image/jpeg':
         event['Records'][0]['s3']['object']['key'] = 'non-existent-key'
-```
+    ```
 1. Add, commit and push the changes to code commit e.g.
-```
-git add dataType/dataType.py && git commit -m 'Force breaking change' ;  git push
-```
+    ```
+    git add dataType/dataType.py && git commit -m 'Force breaking change' ;  git push
+    ```
 1. In the top left of the AWS console select **services**
 1. In the search box enter *CodePipeline* and select the service
 1. When the change reaches the last stage expand **Deploy** in the left hand menu and click **Deployments**
