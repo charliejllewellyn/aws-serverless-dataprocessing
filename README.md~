@@ -82,11 +82,7 @@ Usually this would be deinfed as part of the code that builds the pipeline but w
 1. Click **Continue to CodePipeline**
 1. Once you are returned to the previous window click **Save**
 1. On the next page click **Save**
-1. Click **Save** on the popup
-1. Finally on the pop-up check **No resources need to be updated**
-    <p align="left">
-      <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codepipeline_no_fresource_update.png">
-    </p>
+1. Finally click **Save** on the popup
 
 ### Deploy the application
 
