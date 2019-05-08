@@ -67,7 +67,7 @@ Usually this would be deinfed as part of the code that builds the pipeline but w
     <p align="left">
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codebuild_stage.png">
     </p>
-1. In page that opens enter *UnitestRun* as the **Project Name**
+1. In page that opens enter *UnittestRun* as the **Project Name**
 1. Unless specified below leave all other fields as their default
 1. In the **Environment** section select **Ubuntu** as the **Operating system**
 1. Select **Python** for the **Runtime(s)**
