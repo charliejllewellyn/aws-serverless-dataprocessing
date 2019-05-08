@@ -222,6 +222,10 @@ Whilst visualisation is useful it is also helpful to query the data directly wit
 1. In the left hand dropdown select **ServerlessDataProcessing** for the **Database**
 1. IN the query section center the following code
     ```
+    select objectId FROM rekognitionimagedetectlabels  CROSS JOIN UNNEST(labels) as t(labels2) where labels2.name like '%Kitten%'
+    ```
+1. You can then start to run more complex queries for example
+    ```
     SELECT
     rekognitionimagedetectlabels.objectid, labels2.name, labels2.confidence, rekognitionimagefacedetection.facedetails, rekognitionimagedetecttext.textdetections
     FROM
