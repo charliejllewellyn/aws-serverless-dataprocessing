@@ -111,7 +111,7 @@ Usually this would be deinfed as part of the code that builds the pipeline but w
 1. Head back to the CodePipeline console and expand **Pipeline** on the left and select **Pipelines**
 1. Click into your pipeline e.g. *serverlessdataprocessing-Codepipeline-Demo* and you can follow the progress
 
-## Create a step function to perform data processing
+## Generate sample application use to perform data processing
 
 ### Generate application traffic
 To simulate a real world application we'll start generating some real data to process. To help with this we've written a Lambda function that uses an open images dataset. The Lambda function pulls randomly images form this data set and uploads to the application for processing.
@@ -139,8 +139,6 @@ To simulate a real world application we'll start generating some real data to pr
     <p align="left">
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/step_success.png">
     </p>
-
-TODO: EDIT STEP FUNCTION
 
 ## Create a glue catalog
 Now our serverless application is processing data we will use glue to create a schema over the output so we can start to interogate the output of the enrichment performed by the application.
