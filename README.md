@@ -41,7 +41,7 @@ This will take approximatly 5 minutes to deploy the stack and should result in C
 
 Once our pipeline is deployed we're going to add an additional stage. This stage will run a CodeBuild job to first execute our unitests before continuing to prepare and deploy the application.
 
-### Add a CodePiple stage for unitesting
+### Add a Codepiple stage for unittesting
 
 Usually this would be deinfed as part of the code that builds the pipeline but we are adding it manually as an oppurtunity to explore CodePipeline and CodeBuild.
 
@@ -59,7 +59,7 @@ Usually this would be deinfed as part of the code that builds the pipeline but w
 1. Underneath the first phase *Source* click **Add Stage**.
 1. Enter *Testing* for the **Stage Name** and click **Add Stage**
 1. In the new stage click **Add action group**
-1. Enter *unitests* for the **Action name**
+1. Enter *Unittests* for the **Action name**
 1. Select **AWS CodeBuild** under the **Test** section for the **Action provider**
 1. Leave the **Region** as **EU (Ireland)**
 1. Select **MyApp** for the **Input artifacts**
@@ -67,7 +67,7 @@ Usually this would be deinfed as part of the code that builds the pipeline but w
     <p align="left">
       <img width="250" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/codebuild_stage.png">
     </p>
-1. In page that opens enter *unitests* as the **Project Name**
+1. In page that opens enter *UnittestRun* as the **Project Name**
 1. Unless specified below leave all other fields as their default
 1. In the **Environment** section select **Ubuntu** as the **Operating system**
 1. Select **Python** for the **Runtime(s)**
