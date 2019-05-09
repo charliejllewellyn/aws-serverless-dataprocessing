@@ -23,7 +23,7 @@ To do this click on the following link which will open the AWS CloudFormation co
 | EU West (Ireland) | eu-west-1 | <a href="https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=serverlessdataprocessing&templateURL=https://s3-eu-west-1.amazonaws.com/aws-shared-demo-cf-templates/codepipeline/code-pipeline.yaml" target="_blank"><img src="images/cloudformation-launch-stack.png"></a> |
 
 1. On the page that opens click **next**
-1. Enter a project name e.g. *serverlessdataprocessing* and click **next**
+1. Enter a **ProjectName** e.g. *serverlessdataprocessing* and set **ConfigureTestPhase** to *false* and click **next**
 1. Click **next**
 1. You may be asked to acknowledge that AWS CloudFormation might create IAM resources with custom names.
     <p align="left">
