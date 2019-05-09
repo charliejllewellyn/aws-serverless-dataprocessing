@@ -3,6 +3,12 @@ This lab demonstrates how to build a serverless data processing pipeline to enri
 
 The lab also introduces AWS CodePipeline enabling blue/green deployments of the serverless application.
 
+The following diagram describes the application that will be deployed.
+
+<p align="left">
+  <img width="500" src="https://github.com/charliejllewellyn/aws-serverless-dataprocessing/blob/master/images/serverless-dataprocessing.png">
+</p>
+
 # Prerequisites
 
 Install Git, generate a keypair and add add the public key to your security credentials in AWS. The can be done by following the guide here:
